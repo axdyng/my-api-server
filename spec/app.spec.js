@@ -23,10 +23,10 @@ describe("Express Server API", function () {
       supertest(app)
         .get('/dylan')
         .expect({
-          profileURL: 'https://lovelace-media.imgix.net/uploads/1406/c93b8060-2b3e-0134-0660-062f3a35be5f.PNG',
+          profileURL: 'http://v030o.popscreen.com/eHNqbWd6MTI=_o_pokemon-profiles-dragonite-149.jpg',
           name: 'Dylan',
-          Profession: 'Pokemon Trainer',
-          Quote: "A caterpie may change into Butterfree, but the heart beating inside remains to same."
+          profession: 'Pokemon Trainer',
+          quote: "A caterpie may change into a butterfree, but the heart beating inside remains the same."
         }, done);
     });
 
