@@ -1,4 +1,5 @@
 var mongo_url = process.env.MONGODB_URI || 'mongodb://localhost/myapi_db';
+var jwt_secret   = 'dragonitecharizardsnorlaxlaprasabra';
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -8,6 +9,22 @@ var express = require('./config/express');
 var app = express();
 
 app.set('port', (process.env.PORT || 4000));
+
+// jwt variables
+var expressJWT      = require('express-jwt'),
+    jwt             = require('jsonwebtoken');
+
+// express-jwt
+app.use(
+  expressJWT({
+    // set secret string for expressJWT to absorb
+    secret: jwt_secret
+  })
+  .unless({
+    // specific which path excluded from token authentication
+    path: ['/signup', '/login']
+  })
+);
 
 // require models
 var User = require('./app/models/user');
@@ -32,7 +49,17 @@ app.post('/login', function(req, res){
     if(err) return res.status(400).send('Invalid email / password');
 
     if(found_user) {
-      return res.status(200).send('Login success');
+      // set up jwt signing parameters
+      var payload = {
+        id: found_user.id,
+        email: found_user.email
+      };
+      var expiryObj = {
+        expiresIn: "1h"
+      };
+      var jwt_token  = jwt.sign(payload, jwt_secret, expiryObj);
+
+      return res.status(200).send(jwt_token);
     } else {
       return res.status(400).send( {message: 'Login failed'});
     }
