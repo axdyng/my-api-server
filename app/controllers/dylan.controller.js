@@ -1,6 +1,6 @@
 module.exports = {
   index: function(req, res) {
-    res.jsonp({
+    res.json({
       profileURL: 'http://pm1.narvii.com/5847/30a4b49a069109f96ee55b61b2788d496095977a_hq.jpg',
       name: 'Dylan',
       profession: 'Trainer',

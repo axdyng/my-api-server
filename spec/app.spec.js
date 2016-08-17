@@ -9,7 +9,7 @@ describe("Express Server API", function () {
     it("returns status code 200", function (done) {
       supertest(app)
         .get('/dylan')
-        .expect('Content-Type', /jsonp/)
+        .expect('Content-Type', /json/)
         .expect(200, done);
     });
 
@@ -23,9 +23,9 @@ describe("Express Server API", function () {
       supertest(app)
         .get('/dylan')
         .expect({
-          profileURL: 'http://v030o.popscreen.com/eHNqbWd6MTI=_o_pokemon-profiles-dragonite-149.jpg',
+          profileURL: 'http://pm1.narvii.com/5847/30a4b49a069109f96ee55b61b2788d496095977a_hq.jpg',
           name: 'Dylan',
-          profession: 'Pokemon Trainer',
+          profession: 'Trainer',
           quote: "A caterpie may change into a butterfree, but the heart beating inside remains the same."
         }, done);
     });
